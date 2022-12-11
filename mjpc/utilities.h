@@ -22,6 +22,8 @@
 #include <string>
 #include <string_view>
 #include <type_traits>
+#include "task.h"
+
 
 #include <mujoco/mujoco.h>
 
@@ -170,6 +172,8 @@ using UniqueMjData = std::unique_ptr<mjData, void (*)(mjData*)>;
 inline UniqueMjData MakeUniqueMjData(mjData* d) {
   return UniqueMjData(d, mj_deleteData);
 }
+
+void UpdateTaskFromLanguage(Task&);
 
 }  // namespace mjpc
 

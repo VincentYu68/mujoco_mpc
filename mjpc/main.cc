@@ -392,6 +392,8 @@ void PhysicsLoop(mj::Simulate& sim) {
     if (sim.uiloadrequest.load() == 0) {
       sim.agent.ActiveState().Set(m, d);
     }
+
+    UpdateTaskFromLanguage(sim.agent.task());
   }
 }
 }  // namespace

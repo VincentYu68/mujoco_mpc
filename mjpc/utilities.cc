@@ -20,6 +20,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
+#include <fstream>
 #include <memory>
 #include <new>
 #include <string>
@@ -573,6 +574,17 @@ void LogScale(double* values, double max_value, double min_value, int steps) {
   for (int i = 0; i < steps; i++) {
     values[i] = mju_exp(mju_log(min_value) + i * step);
   }
+}
+
+void UpdateTaskFromLanguage(Task& task) {
+  std::fstream interm_file("/tmp/weights.txt", std::ios_base::in);
+  float weight;
+  int weight_id = 0;
+  while (interm_file >> weight && weight_id < kMaxCostTerms) {
+    task.weight[weight_id] = weight;
+    weight_id ++;
+  }
+  interm_file.close();
 }
 
 }  // namespace mjpc
