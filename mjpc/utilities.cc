@@ -577,14 +577,23 @@ void LogScale(double* values, double max_value, double min_value, int steps) {
 }
 
 void UpdateTaskFromLanguage(Task& task) {
-  std::fstream interm_file("/tmp/weights.txt", std::ios_base::in);
+  std::fstream interm_file1("/tmp/weights.txt", std::ios_base::in);
   float weight;
   int weight_id = 0;
-  while (interm_file >> weight && weight_id < kMaxCostTerms) {
+  while (interm_file1 >> weight && weight_id < kMaxCostTerms) {
     task.weight[weight_id] = weight;
     weight_id ++;
   }
-  interm_file.close();
+  interm_file1.close();
+
+  std::fstream interm_file2("/tmp/residuals.txt", std::ios_base::in);
+  float residual;
+  int residual_id = 0;
+  while (interm_file2 >> residual && residual_id < task.residual_parameters.size()) {
+    task.residual_parameters[residual_id] = residual;
+    residual_id ++;
+  }
+  interm_file2.close();
 }
 
 }  // namespace mjpc
